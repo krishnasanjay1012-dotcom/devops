@@ -1,0 +1,29 @@
+name: Node Docker CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node (optional but good practice)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3. Build Docker image
+      - name: Build Docker image
+        run: docker build -t sanjay-app .
+
+      # 4. Run container (test step)
+      - name: Run Docker container
+        run: docker run sanjay-app
